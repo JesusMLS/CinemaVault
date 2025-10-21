@@ -27,4 +27,5 @@ PARA PODER CORRER EL FRONTEND(NECESARIO PARA VER DATOS):
 1. Entrar al directorio del frontend 'Frontend-CineVault' y luego correr el comando 'npm install'.
 2. Despues para correr el frontend: 'npm run dev'.
 
+#
 UNDER CONSTRUCTION
