@@ -5,8 +5,8 @@ Para ejecutar esta aplicación es recomendable utilizar el docker-compose.yml, y
 *Pero es necesario al 100% una db de mysql.
 *También modifica la whitelist de los cors en el server.js, si es necesario.
 
-RESUMEN:
--Esta aplicación le permite a un usuario normal con rol de 'user', entrar a un directorio de películas.
+#
+Esta aplicación le permite a un usuario normal con rol de 'user', entrar a un directorio de películas.
 El usuario podra filtrar las películas que se encuentren por diferentes parámetros, genero, año, destacadas, etc.
 Tambien podrá utilizar un buscador, donde podrá buscar por el nombre de la película.
 *También podrá ver puntuaciones de las películas puestas por los administradores.
@@ -15,6 +15,7 @@ Tambien podrá utilizar un buscador, donde podrá buscar por el nombre de la pel
 El administrador podrá añadir películas a la página, modificarlas y eliminarlas.
 También podrá crear y eliminar generos, directores, actores.
 (Por ahora solo se puede añadir películas al directorio, lo demás no se logro hacer en el tiempo dado).
+#
 
 PARA PODER CORRER EL BACKEND (NECESARIO PARA EL FRONTEND):
 1. Entrar al directorio del backend 'Backend-CineVault' y en la terminal utilizar el comando 'npm install'.
@@ -26,4 +27,4 @@ PARA PODER CORRER EL FRONTEND(NECESARIO PARA VER DATOS):
 1. Entrar al directorio del frontend 'Frontend-CineVault' y luego correr el comando 'npm install'.
 2. Despues para correr el frontend: 'npm run dev'.
 
-NOTA: AUN EN CONSTRUCCIÓN.
+UNDER CONSTRUCTION
