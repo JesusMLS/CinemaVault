@@ -1,0 +1,97 @@
+//For usage only with Rest Client VSCode Extension
+
+### GET a specific movie
+GET http://localhost:3000/movies/21
+
+### Register a user POST /auth/register
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "email@gmail.com",
+    "username": "jmls17",
+    "password": "123123123"
+}
+
+### Register an admin POST /auth/register
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email": "email_admin@gmail.com",
+    "username": "jmls15",
+    "password": "123123123",
+    "role": "admin"
+}
+
+### Login a user POST /auth/login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "email_admin@gmail.com",
+    "username": "jmls15",
+    "password": "123123123"
+}
+
+### Create a new movie POST
+POST http://localhost:3000/movies/
+Content-Type: application/json
+
+{
+    "title": "Order 444234653",
+    "genres": ["Horror", "Action", "SCI-FI", "Drama", "Romance", "Genre6", "Genre7", "Genre8", "Genre9", "Genre10"],
+    "directors":["Michael Williams"],
+    "actors": ["Johny Rosado", "Sara Mendez", "Ash Ketchup"],
+    "description": "This is a movie description example.",
+    "year": 2009,
+    "featured": true
+}
+
+### Update a movie POST
+PUT http://localhost:3000/movies/6
+Content-Type: application/json
+
+{
+    "title": "Order 43333334",
+    "genres": ["Horror", "Action"],
+    "directors":["Michael Williams", "R.R Martin"],
+    "actors": ["Johny Rosado", "Sara Mendez"],
+    "description": "This is a movie description example.",
+    "year": 2008,
+    "rating": 3,
+    "featured": true
+}
+
+### Delete a movie DELETE
+DELETE http://localhost:3000/movies/5
+
+### Add movie to user list of viewed movies
+POST http://localhost:3000/movies/6/view
+
+### GET multiple movies by filters || http://localhost:3000/movies/?skip=0&take=10&genre=action&order=year_asc&search=Order
+GET http://localhost:3000/movies/?featured=true
+
+### Delete a Director DELETE
+DELETE http://localhost:3000/directors/1
+
+### Delete a genre DELETE
+DELETE http://localhost:3000/genres/1
+
+### Delete an Actor DELETE
+DELETE http://localhost:3000/actors/1
+
+### Get all Actor in name asc order
+GET http://localhost:3000/actors/
+
+### Get all Director in name asc order
+GET http://localhost:3000/directors/
+
+### Get all genres in name asc order
+GET http://localhost:3000/genres/?take=0
+
+### Get all Users (filtered by role or not) in id asc order  /users/?role=admin
+GET http://localhost:3000/users
+
+### Delete a User DELETE
+DELETE http://localhost:3000/users/1

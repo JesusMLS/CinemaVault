@@ -1,0 +1,36 @@
+services:
+  service1:
+    image: node:24-alpine
+    entrypoint: sh
+    stdin_open: true
+    tty: true
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/local/node_files/
+  
+  service2:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: database1
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: user1
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  service3:
+    image: phpmyadmin:latest
+    environment:
+      PMA_HOST: service2
+      PMA_PORT: 3306
+    ports:
+      - "80:80"
+    depends_on:
+      - service2
+
+volumes:
+  mysql_data:
+    

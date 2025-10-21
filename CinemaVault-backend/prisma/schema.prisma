@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "windows"]
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  email  String  @unique
+  username String @unique
+  password  String
+  role      String  @default("user") //Se utiliza solo el campo 'rol', ya que solo habrá 2 roles en el Backend y Frontend
+  views UserMovieViewed[]
+}
+
+model UserMovieViewed{
+  id    Int   @id @default(autoincrement())
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  Int
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId Int
+  date  DateTime  @default(now())
+
+  @@unique([userId, movieId])
+}
+
+model Movie{
+  id        Int   @id @default(autoincrement())
+  title     String @unique
+  genres  MovieGenre[]
+  directors MovieDirector[]
+  actors    MovieActor[]
+  description String
+  year  Int
+  rating  Int @default(0)
+  featured  Boolean @default(false)
+  views UserMovieViewed[]
+  created DateTime  @default(now())  
+  updated DateTime  @updatedAt
+}
+
+model MovieDirector{
+  director  Director  @relation(fields: [directorId], references: [id], onDelete: Cascade)
+  directorId  Int
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId Int
+  date  DateTime  @default(now())
+  @@id([movieId, directorId])
+}
+
+model Director{
+  id    Int @id @default(autoincrement())
+  name  String @unique
+  movies  MovieDirector[]
+}
+
+model MovieActor{
+  actor  Actor  @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  actorId  Int
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId Int
+  date  DateTime  @default(now())
+  @@id([movieId, actorId])
+}
+
+model Actor{
+  id  Int @id @default(autoincrement())
+  name  String @unique
+  movies  MovieActor[]
+}
+
+model MovieGenre{
+  genre  Genre  @relation(fields: [genreId], references: [id], onDelete: Cascade)
+  genreId  Int
+  movie Movie @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId Int
+  date  DateTime  @default(now())
+  @@id([movieId, genreId])
+}
+
+model Genre{
+  id      Int   @id @default(autoincrement())
+  name    String  @unique 
+  movies   MovieGenre[]
+}
+
+
