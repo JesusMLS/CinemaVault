@@ -35,8 +35,38 @@ function Header({ userInfo, logOut }){
             logOut();
         }
 
+        function toggleSidebar(){
+            let sidebar = document.getElementById('sidebar-categories')
+            let sidebarContainer = document.getElementById('sidebar-categories-container')
+            sidebar?.classList.toggle('translate-x-full')
+            sidebarContainer?.classList.toggle('bg-black/70')
+            sidebarContainer?.classList.toggle('-z-10')
+            sidebarContainer?.classList.toggle('z-10')
+            document.body.classList.toggle('overflow-hidden')
+        }
+
     return (
-        <header>
+        <nav id='navigationBar' className='shadow-sm top-0 bg-white sticky w-full z-0'>
+        <div className='py-4 px-2 md:px-24 flex justify-between items-center'>
+            <div className='flex flex-row gap-3'>
+                <img src={ReactLogo} alt='' className='w-5 h-5'></img>
+                <a href='/home' className='text-lg'>CinemaVault</a>
+            </div>
+            <a href='/home'>Home</a>
+            <a href='/add/movie'>Add Movie</a>
+            <a href='/movies'>Movies</a>
+            <button onClick={() =>{
+                toggleSidebar()
+            }} className='cursor-pointer'>Categories</button>
+            <div id='sidebar-categories-container' className='fixed w-screen h-screen top-0 left-0 -z-10'>
+                <div id='sidebar-categories' className='fixed top-0 right-0 h-full sm:w-96 w-full bg-white shadow-lg z-20 transform translate-x-full'>
+                    <div className='pt-4 pb-10 h-full text-2xl flex flex-col gap-6 text-center'>
+                        <a href='/movies/category/views' onClick={toggleSidebar()}>User Views</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+{/*      
         <Navbar className='bg-body-secondary pb-0 pt-0'>
             <Container>
                 <Nav className='me-auto'>
@@ -88,7 +118,8 @@ function Header({ userInfo, logOut }){
                 </Navbar.Collapse>
             </Container>
         </Navbar>
-        </header>
+*/}
+        </nav>
     )
 }
 

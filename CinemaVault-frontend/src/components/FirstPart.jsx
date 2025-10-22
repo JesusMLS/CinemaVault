@@ -1,6 +1,7 @@
 
 function FirstPart(){
     return (
+        /*
         <Container className='bg-secondary py-5' fluid>
             <Row lg={5}>
                 <Col lg={6} md={8} className='mx-auto'>
@@ -10,6 +11,8 @@ function FirstPart(){
                 </Col>
             </Row>
         </Container>
+        */
+       <h1>First Part</h1>
     )
 }
 
