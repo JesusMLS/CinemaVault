@@ -1,9 +1,10 @@
 Aplicación Web FrontEnd Vite+React - Backend Nodejs-Express (CinemaVault):
-Para ejecutar esta aplicación es recomendable utilizar el docker-compose.yml, ya que viene configurada para ello.
+Para ejecutar esta aplicación es recomendable utilizar el docker-compose.yml (docker), ya que viene configurada para ello.
 
-*En caso de que no quieras utilizar el docker compose, modifica las variables en el .env a los de tu entorno.
-*Pero es necesario al 100% una db de mysql.
-*También modifica la whitelist de los cors en el server.js, si es necesario.
+NOTA:
+-En caso de que no quieras utilizar el docker compose (docker), modifica las variables en el .env a las de tu entorno.
+*Pero es necesario al 100% una base de datos de mysql.
+-También puedes modificar la whitelist de los cors en el archivo server.js, si requieres utilizar un cliente como 'Rest Client'.
 
 #
 Esta aplicación le permite a un usuario normal con rol de 'user', entrar a un directorio de películas.
