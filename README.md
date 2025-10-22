@@ -23,7 +23,7 @@ También podrá crear y eliminar generos, directores, actores.
 PARA PODER CORRER EL BACKEND (NECESARIO PARA EL FRONTEND):
 1. Entrar al directorio del backend 'Backend-CineVault' y en la terminal utilizar el comando 'npm install'.
 2. Utilizar el comando 'npx prisma generate'
-3. Después utilizar el comando 'prisma migrate dev'
+3. Después utilizar el comando 'npx prisma migrate dev'
 4. Despues para correr el backend: 'npm run dev'.
 
 PARA PODER CORRER EL FRONTEND(NECESARIO PARA VER DATOS):
