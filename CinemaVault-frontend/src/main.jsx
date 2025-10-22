@@ -13,7 +13,6 @@ import SignUp from './views/Register.jsx';
 import Welcome from './views/Welcome.jsx';
 import GenericNotFound from './views/GenericNotFound.jsx';
 import MainLayout from './layouts/MainLayout.jsx'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import '@mantine/core/styles.css'
 import '@mantine/carousel/styles.css'
 import '@mantine/notifications/styles.css';
