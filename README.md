@@ -13,11 +13,11 @@ Esta aplicación le permite a un usuario normal con rol de 'user', entrar a un d
 El usuario podra filtrar las películas que se encuentren por diferentes parámetros, genero, año, destacadas, etc.
 Tambien podrá utilizar un buscador, donde podrá buscar por el nombre de la película.
 *También podrá ver puntuaciones de las películas puestas por los administradores.
-(No todas las opciones estan disponibles o se pueden ver, ya que no se logro hacer en el tiempo dado, como el filtro por categorias, o que el usuario pueda ver los detalles de una película en una página aparte)
+(No todas las opciones estan disponibles o se pueden ver, ya que la página sigue en construcción, como el filtro por categorias, o que el usuario pueda ver los detalles de una película en una página aparte)
 
 El administrador podrá añadir películas a la página, modificarlas y eliminarlas.
 También podrá crear y eliminar generos, directores, actores.
-(Por ahora solo se puede añadir películas al directorio, lo demás no se logro hacer en el tiempo dado).
+(Por ahora solo se puede añadir películas al directorio, lo demás aun no esta disponible).
 #
 
 PARA PODER CORRER EL BACKEND (NECESARIO PARA EL FRONTEND):
