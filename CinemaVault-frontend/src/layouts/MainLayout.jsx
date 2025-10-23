@@ -10,7 +10,7 @@ function MainLayout(){
     return(
         <>
         <Header userInfo={user} logOut={logOut}/>
-        <Outlet/>
+            <Outlet/>
         <Footer/>
         </>
     )
