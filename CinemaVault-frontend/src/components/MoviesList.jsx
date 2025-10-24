@@ -4,14 +4,17 @@ import { useEffect, useState } from "react";
 import { useForm } from '@mantine/form'
 import { useParams } from "react-router";
 import API from "../utils/api";
+import Section from "./Section";
 
 function MoviesList(){
         const { genre, search, year, featured }= useParams()
         const [movies, setMovies] = useState([])
         const [loading, setLoading] = useState(true);
         const [error, setError] = useState(null)
+
         //Could be used in the future for a reload button
         //const [reload, setReload] = useState(false)
+
         const [page, setPage] = useState(1)
         const [totalPages, setTotalPages] = useState(1)
 
@@ -52,11 +55,12 @@ function MoviesList(){
     if(error) return <div>Error: {error}</div>
     
     const moviesComponents = movies.movies.map((movie, index) =>{
-        return <Grid.Col span={{ base: 12, md:6, lg: 3 }} key={movie.id}><SimpleSingleCard key={index} movie={movie}/></Grid.Col>
+        return <div key={movie.id}><SimpleSingleCard key={index} movie={movie}/></div>
     })
     return(
-        <Flex py='xs' bg="var(--mantine-color-blue-light)" direction='column' align='center' px='xl'>
-            <Group mb='15px'>
+        <Section Id='menu-list' AddPading={true}>
+            <p className="text-2xl">Movies</p>
+            <div className="p-4 bg-blue-200 flex flex-col items-center justify-center gap-3">
                 <form onSubmit={form.onSubmit((values) =>{
                     setFilters((pastFilter) => ({
                         ...(pastFilter),
@@ -71,12 +75,12 @@ function MoviesList(){
                     }}></Checkbox>
                     <input type="submit" hidden/>
                 </form>
-            </Group>
-            <Grid mb='15px'>
+            <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-12  gap-4">
                 {moviesComponents}
-            </Grid>
+            </div>
             <Pagination total={totalPages} value={page} onChange={(p) =>setPage(p)} />
-        </Flex>
+            </div>
+        </Section>
     )
 }
 

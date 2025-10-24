@@ -8,11 +8,13 @@ function MainLayout(){
     if(loading || user === null) return null
 
     return(
-        <>
+        <div className="min-h-screen flex flex-col bg-white">
         <Header userInfo={user} logOut={logOut}/>
+        <main className="grow flex flex-col items-center">
             <Outlet/>
+        </main>
         <Footer/>
-        </>
+        </div>
     )
 }
 

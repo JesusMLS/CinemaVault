@@ -1,6 +1,5 @@
 import ReactLogo from '../assets/react.svg'
 import { useState, useEffect } from 'react'
-import { IconBrandFacebook, IconBrandYoutube, IconBrandInstagram } from '@tabler/icons-react'
 import { IconMenu2 } from '@tabler/icons-react';
 import API from '../utils/api'
 import { Link } from 'react-router'
