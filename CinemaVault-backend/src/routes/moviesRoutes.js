@@ -8,26 +8,8 @@ const router = express.Router()
 //GET /movies/?skip=0&take=10&genre=action&order=year_asc&search=Order_33
 //Get movies (you can use filters or not)
 router.get('/', async (req, res) =>{
-    let {featured, genre, year, order, search, category} = req.query
+    let {featured, genre, year, order, search} = req.query
     let featuredBool = featured === 'true'
-    if(category !=='' && category !== undefined){
-    if(category == 'featured'){
-        featuredBool = true
-    }
-    if(category == 'views'){
-        order = 'views_asc'
-    }
-    if(category == 'posted'){
-        order = 'created_asc'
-    }
-    if(category == 'release'){
-        order = 'year_asc'
-    }
-    if(category == 'califications'){
-        order = 'rating_asc'
-    }
-    }
-
     const skip = Number(req.query.skip)|| 0
     const take = Number(req.query.take) || 10
     const where = {...(featured === undefined ? {}: { featured: featuredBool }), ...(genre && { genres : { some: { genre: { name:  { equals: genre } } }} }), ...(year && { year: Number(year) }),...(search && { OR : [{ title:{ contains: search } },{ directors:{ some: { director: {name: {contains: search }}}} },{ actors:{ some: { actor: {name: {contains: search }}}} }]})};

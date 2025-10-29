@@ -64,7 +64,7 @@ import AuthLayout from './layouts/AuthLayout.jsx';
           element: <Movies/>
         },
         {
-          path: '/movies/category/:category',
+          path: '/movies/category/:order',
           element: <Movies/>
         }
       ]

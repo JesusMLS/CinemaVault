@@ -55,12 +55,11 @@ function Header({ userInfo, logOut }){
         function toggleMenu(menuId){
             let menuContainer = document.getElementById(menuId)
             menuContainer?.classList.toggle('hidden')
-            document.body.classList.toggle('overflow-hidden')
         }
 
     return (
         //Navigation Bar
-        <nav id='navigationBar' className='shadow-sm top-0 bg-white sticky w-full z-0'>
+        <nav id='navigationBar' className='shadow-sm top-0 bg-white sticky z-0'>
             {/* Items inside navigation Bar */}
         <div className='py-4 px-10 flex justify-between items-center'>
             <Link to='/home'>
@@ -83,11 +82,11 @@ function Header({ userInfo, logOut }){
             {/* Categories Menu*/}
             <div id='menu-categories-container' className='hidden absolute w-auto h-auto top-6 right-0 bg-amber-100 shadow-lg rounded-sm'>
                     <div className='p-3 h-full text-base flex flex-col gap-5 text-center'>
-                        <Link to='/movies/category/views' onClick={() =>toggleMenu('menu-categories-container')}>User Views</Link>
-                        <Link to='/movies/category/posted' onClick={() =>toggleMenu('menu-categories-container')}>Latest Posts</Link>
-                        <Link to='/movies/category/released' onClick={() =>toggleMenu('menu-categories-container')}>Latest Releases</Link>
-                        <Link to='/movies/category/featured' onClick={() =>toggleMenu('menu-categories-container')}>Featured by Administrators</Link>
-                        <Link to='/movies/category/califications' onClick={() =>toggleMenu('menu-categories-container')}>Best Califications</Link>
+                        <Link to='/movies/category/views_asc' onClick={() =>toggleMenu('menu-categories-container')}>User Views</Link>
+                        <Link to='/movies/category/created_asc' onClick={() =>toggleMenu('menu-categories-container')}>Latest Posts</Link>
+                        <Link to='/movies/category/year_asc' onClick={() =>toggleMenu('menu-categories-container')}>Latest Releases</Link>
+                        <Link to={{pathname: '/movies', search: '?featured=true'}}  onClick={() =>toggleMenu('menu-categories-container')}>Featured by Administrators</Link>
+                        <Link to='/movies/category/rating_asc' onClick={() =>toggleMenu('menu-categories-container')}>Best Califications</Link>
                     </div>
             </div>
             </div>
@@ -145,7 +144,7 @@ function Header({ userInfo, logOut }){
 
          {/* Extended Menu, it only appears when you use the button above */}
             {/* Items inside extended Menu */}
-            <div id='menu-extended-container' className='hidden md:hidden absolute w-screen h-auto top-17 right-0 left-0 bg-white shadow-lg'>
+            <div id='menu-extended-container' className='hidden md:hidden absolute w-full h-auto top-17 right-0 left-0 bg-white shadow-lg'>
             <div className='p-7 h-full text-xl flex flex-col gap-5 text-center items-center'>
             <Link to='/home' onClick={() =>toggleMenu('menu-extended-container')}>Home</Link>
             <Link to='/add/movie' onClick={() =>toggleMenu('menu-extended-container')}>Add Movie</Link>
@@ -157,11 +156,11 @@ function Header({ userInfo, logOut }){
             }} className='cursor-pointer' type='button' title='categories'>Categories</button>
             <div id='grid-categories-container' className='hidden'>
             <div className='grid grid-cols-2 gap-1 text-sm p-2 bg-amber-100 rounded-2xl'>
-                <Link to='/movies/category/views' className='w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>User Views</Link>
-                <Link to='/movies/category/posted' className=' w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>Latest Posts</Link>
-                <Link to='/movies/category/released' className='w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>Latest Releases</Link>
-                <Link to='/movies/category/featured' className='w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>Featured by Administrators</Link>
-                <Link to='/movies/category/califications' className='w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>Best Califications</Link>
+                <Link to='/movies/category/views_asc' className='w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>User Views</Link>
+                <Link to='/movies/category/created_asc' className=' w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>Latest Posts</Link>
+                <Link to='/movies/category/year_asc' className='w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>Latest Releases</Link>
+                <Link to={{pathname: '/movies', search: '?featured=true'}} className='w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>Featured by Administrators</Link>
+                <Link to='/movies/category/rating_asc' className='w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>Best Califications</Link>
             </div>
             </div>
             </div>
