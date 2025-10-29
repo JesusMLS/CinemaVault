@@ -25,7 +25,7 @@ function Header({ userInfo, logOut }){
         
         //Create an Array of Genres Links to render V1 (not expanded menu)
         const genresComponents = genres.map((genre) =>{
-            return <Link to={'/movies/genre/'+genre.name} key={genre.id} onClick={() =>toggleMenu('menu-genres-container')}>{genre.name} {genre._count.movies}</Link>
+            return <Link to={'/movies/genre/'+genre.name} key={genre.id} className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-genres-container')}>{genre.name}</Link>
         })
 
         //Create an Array of Genres Links to render V2 (expanded menu)
@@ -39,7 +39,7 @@ function Header({ userInfo, logOut }){
 
         //Create an array of Years Links to render V1 (not expanded menu)
         const yearsComponents = yearsArray.map((year, index) =>{
-                                return <Link to={'/movies/year/'+year} key={index} onClick={() => toggleMenu('menu-years-container')}>{year}</Link>
+                                return <Link to={'/movies/year/'+year} key={index} className='w-25 truncate p-2 hover:bg-red rounded-sm' onClick={() => toggleMenu('menu-years-container')}>{year}</Link>
                             })
 
         //Create an array of Years Links to render V2 (expanded menu)
@@ -81,12 +81,13 @@ function Header({ userInfo, logOut }){
             }} className='cursor-pointer' type='button' title='categories'>Categories</button>
             {/* Categories Menu*/}
             <div id='menu-categories-container' className='hidden absolute w-auto h-auto top-6 right-0 bg-amber-100 shadow-lg rounded-sm'>
-                    <div className='p-3 h-full text-base flex flex-col gap-5 text-center'>
-                        <Link to='/movies/category/views_asc' onClick={() =>toggleMenu('menu-categories-container')}>User Views</Link>
-                        <Link to='/movies/category/created_asc' onClick={() =>toggleMenu('menu-categories-container')}>Latest Posts</Link>
-                        <Link to='/movies/category/year_asc' onClick={() =>toggleMenu('menu-categories-container')}>Latest Releases</Link>
-                        <Link to={{pathname: '/movies', search: '?featured=true'}}  onClick={() =>toggleMenu('menu-categories-container')}>Featured by Administrators</Link>
-                        <Link to='/movies/category/rating_asc' onClick={() =>toggleMenu('menu-categories-container')}>Best Califications</Link>
+                {/* 5 rows per column, a good amount to make it fit in most of the screens */}
+                    <div className='p-3 h-full text-sm grid grid-rows-5 grid-flow-col gap-0'>
+                        <Link to='/movies/category/views_asc' className='w-36 truncate hover:bg-red p-2 rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>User Views</Link>
+                        <Link to='/movies/category/created_asc' className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>Latest Posts</Link>
+                        <Link to='/movies/category/year_asc' className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>Latest Releases</Link>
+                        <Link to={{pathname: '/movies', search: '?featured=true'}} className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>Featured by Administrators</Link>
+                        <Link to='/movies/category/rating_asc' className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>Best Califications</Link>
                     </div>
             </div>
             </div>
@@ -98,9 +99,9 @@ function Header({ userInfo, logOut }){
             }} className='cursor-pointer' type='button' title='genres'>Genres</button>
             {/* Genres Menu*/}
             <div id='menu-genres-container' className='hidden absolute w-auto h-auto top-6 right-0 bg-amber-100 shadow-lg rounded-sm'>
-                    <div className='p-3 h-full text-base flex flex-col gap-5 text-center'>
+                    <div className={genresComponents.length<5? `p-3 h-full text-sm grid grid-rows-${genresComponents.length} grid-flow-col gap-0`:"p-3 h-full text-sm grid grid-rows-5 grid-flow-col gap-0"}>
                         {genresComponents}
-                        <Link to='/movies' className='font-bold' onClick={() =>toggleMenu('menu-genres-container')}>More</Link>
+                        <Link to='/movies' className='font-bold w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-genres-container')}>More</Link>
                     </div>
             </div>
             </div>
@@ -112,9 +113,9 @@ function Header({ userInfo, logOut }){
             }} className='cursor-pointer' type='button' title='years'>Years</button>
             {/* Years Menu*/}
             <div id='menu-years-container' className='hidden absolute w-auto h-auto top-6 right-0 bg-amber-100 shadow-lg rounded-sm'>
-                    <div className='p-3 h-full text-base flex flex-col gap-5 text-center'>
+                    <div className='p-3 h-full text-sm grid grid-rows-5 gap-0 grid-flow-col'>
                         {yearsComponents}
-                        <Link to='/movies' className='font-bold' onClick={() =>toggleMenu('menu-years-container')}>More</Link>
+                        <Link to='/movies' className='font-bold w-25 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-years-container')}>More</Link>
                     </div>
             </div>
             </div>
@@ -126,8 +127,8 @@ function Header({ userInfo, logOut }){
             }} className='cursor-pointer' type='button' title='user'>{userInfo.username}</button>
             {/* User Menu*/}
             <div id='menu-user-container' className='hidden absolute w-auto h-auto top-6 right-0 bg-amber-100 shadow-lg rounded-sm'>
-                    <div className='p-3 h-full text-base flex flex-col gap-5 text-center'>
-                        <button className='cursor-pointer w-15 text-red-900' type='button' title='logOut' onClick={() =>{ toggleMenu('menu-user-container'); handleLogout()
+                    <div className='p-3 h-full text-sm flex flex-col gap-0 justify-center items-start'>
+                        <button className='cursor-pointer w-36 p-2 hover:bg-red rounded-sm text-left' type='button' title='logOut' onClick={() =>{ toggleMenu('menu-user-container'); handleLogout()
                         }}>Log Out</button>
                     </div>
             </div>

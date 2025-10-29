@@ -82,8 +82,8 @@ function MoviesList(){
                     <input type="submit" hidden/>
                 </form>
             {/* End Inputs Section*/}
-            <div className="p-4 bg-blue-200 flex flex-col items-left justify-center gap-3 rounded-3xl">
-            <p className="text-2xl">{order? (
+            <div className="p-4 bg-blue-200 flex flex-col items-start justify-center gap-3 rounded-3xl">
+            <p className="text-2xl bg-red">{order? (
              order=='views_asc'? 'By User Views': order=='created_asc'? 'Latest Entries': order=='year_asc'? 'Latest Releases': order=='rating_asc'? 'By Best Ratings': order
             ): 'Movies'}</p>
             {order && (
