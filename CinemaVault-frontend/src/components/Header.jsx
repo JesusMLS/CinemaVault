@@ -30,12 +30,12 @@ function Header({ userInfo, logOut }){
 
         //Create an Array of Genres Links to render V2 (expanded menu)
         const genresComponentsExpanded = genres.map((genre) =>{
-            return <Link to={'/movies/genre/'+genre.name} key={genre.id} onClick={() =>toggleMenu('menu-extended-container')}>{genre.name} {genre._count.movies}</Link>
+            return <Link to={'/movies/genre/'+genre.name} key={genre.id} className='w-29 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>{genre.name}</Link>
         })
 
         //Create an array of past 10 Years, starting from the actual year
         const actualYear = new Date().getFullYear()
-        const yearsArray = [actualYear, actualYear-1, actualYear-2, actualYear-3, actualYear-4, actualYear-5, actualYear-6, actualYear-7, actualYear-8, actualYear-9]
+        const yearsArray = [actualYear, actualYear-1, actualYear-2, actualYear-3, actualYear-4, actualYear-5, actualYear-6, actualYear-7, actualYear-8, actualYear-9, actualYear-10, actualYear-11, actualYear-12, actualYear-13]
 
         //Create an array of Years Links to render V1 (not expanded menu)
         const yearsComponents = yearsArray.map((year, index) =>{
@@ -44,7 +44,7 @@ function Header({ userInfo, logOut }){
 
         //Create an array of Years Links to render V2 (expanded menu)
         const yearsComponentsExpanded = yearsArray.map((year, index) =>{
-                                return <Link to={'/movies/year/'+year} key={index} onClick={() => toggleMenu('menu-extended-container')}>{year}</Link>
+                                return <Link to={'/movies/year/'+year} key={index} className='w-13 truncate hover:text-blue-500' onClick={() => toggleMenu('menu-extended-container')}>{year}</Link>
                             })
 
         const handleLogout = () =>{
@@ -59,7 +59,7 @@ function Header({ userInfo, logOut }){
 
     return (
         //Navigation Bar
-        <nav id='navigationBar' className='shadow-sm top-0 bg-white sticky z-0'>
+        <nav id='navigationBar' className='shadow-sm bg-white relative max-h-full'>
             {/* Items inside navigation Bar */}
         <div className='py-4 px-10 flex justify-between items-center'>
             <Link to='/home'>
@@ -70,18 +70,19 @@ function Header({ userInfo, logOut }){
             </Link>
             {/* Links can only appear when window size is >=md */}
             <div className='hidden md:flex md:flex-row md:gap-7'>
-            <Link to='/home'>Home</Link>
-            <Link to='/add/movie'>Add Movie</Link>
-            <Link to='/movies'>Movies</Link>
+            <Link className='hover:border-b-2 hover:-mb-0.5' to='/home'>Home</Link>
+            <Link className='hover:border-b-2 hover:-mb-0.5' to='/add/movie'>Add Movie</Link>
+            <Link className='hover:border-b-2 hover:-mb-0.5' to='/movies'>Movies</Link>
             {/* Categories Container*/}
             <div className='relative'>
             {/* Categories Button*/}
             <button onClick={() =>{
                 toggleMenu('menu-categories-container')
-            }} className='cursor-pointer' type='button' title='categories'>Categories</button>
+            }} className='cursor-pointer hover:border-b-2 hover:-mb-0.5' type='button' title='categories'>Categories</button>
             {/* Categories Menu*/}
             <div id='menu-categories-container' className='hidden absolute w-auto h-auto top-6 right-0 bg-amber-100 shadow-lg rounded-sm'>
                 {/* 5 rows per column, a good amount to make it fit in most of the screens */}
+                {/* Flex only because we have 5 links but it could be a grid if +5 links*/}
                     <div className='p-3 h-full text-sm grid grid-rows-5 grid-flow-col gap-0'>
                         <Link to='/movies/category/views_asc' className='w-36 truncate hover:bg-red p-2 rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>User Views</Link>
                         <Link to='/movies/category/created_asc' className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>Latest Posts</Link>
@@ -96,10 +97,11 @@ function Header({ userInfo, logOut }){
             {/* Genres Button*/}
             <button onClick={() =>{
                 toggleMenu('menu-genres-container')
-            }} className='cursor-pointer' type='button' title='genres'>Genres</button>
+            }} className='cursor-pointer hover:border-b-2 hover:-mb-0.5' type='button' title='genres'>Genres</button>
             {/* Genres Menu*/}
+            {/* Flex if less than 5 options / Grid if >=5 options */}
             <div id='menu-genres-container' className='hidden absolute w-auto h-auto top-6 right-0 bg-amber-100 shadow-lg rounded-sm'>
-                    <div className={genresComponents.length<5? `p-3 h-full text-sm grid grid-rows-${genresComponents.length} grid-flow-col gap-0`:"p-3 h-full text-sm grid grid-rows-5 grid-flow-col gap-0"}>
+                    <div className={genresComponents.length<5? `p-3 h-full text-sm flex flex-col gap-0 justify-center items-start`:"p-3 h-full text-sm grid grid-rows-5 grid-flow-col gap-0"}>
                         {genresComponents}
                         <Link to='/movies' className='font-bold w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-genres-container')}>More</Link>
                     </div>
@@ -110,7 +112,7 @@ function Header({ userInfo, logOut }){
             {/* Years Button*/}
             <button onClick={() =>{
                 toggleMenu('menu-years-container')
-            }} className='cursor-pointer' type='button' title='years'>Years</button>
+            }} className='cursor-pointer hover:border-b-2 hover:-mb-0.5' type='button' title='years'>Years</button>
             {/* Years Menu*/}
             <div id='menu-years-container' className='hidden absolute w-auto h-auto top-6 right-0 bg-amber-100 shadow-lg rounded-sm'>
                     <div className='p-3 h-full text-sm grid grid-rows-5 gap-0 grid-flow-col'>
@@ -124,10 +126,10 @@ function Header({ userInfo, logOut }){
             {/* User Button*/}
             <button onClick={() =>{
                 toggleMenu('menu-user-container')
-            }} className='cursor-pointer' type='button' title='user'>{userInfo.username}</button>
+            }} className='cursor-pointer hover:border-b-2 hover:-mb-0.5' type='button' title='user'>{userInfo.username}</button>
             {/* User Menu*/}
             <div id='menu-user-container' className='hidden absolute w-auto h-auto top-6 right-0 bg-amber-100 shadow-lg rounded-sm'>
-                    <div className='p-3 h-full text-sm flex flex-col gap-0 justify-center items-start'>
+                    <div className='p-3 h-full text-sm flex flex-col gap-0'>
                         <button className='cursor-pointer w-36 p-2 hover:bg-red rounded-sm text-left' type='button' title='logOut' onClick={() =>{ toggleMenu('menu-user-container'); handleLogout()
                         }}>Log Out</button>
                     </div>
@@ -146,57 +148,57 @@ function Header({ userInfo, logOut }){
          {/* Extended Menu, it only appears when you use the button above */}
             {/* Items inside extended Menu */}
             <div id='menu-extended-container' className='hidden md:hidden absolute w-full h-auto top-17 right-0 left-0 bg-white shadow-lg'>
-            <div className='p-7 h-full text-xl flex flex-col gap-5 text-center items-center'>
-            <Link to='/home' onClick={() =>toggleMenu('menu-extended-container')}>Home</Link>
-            <Link to='/add/movie' onClick={() =>toggleMenu('menu-extended-container')}>Add Movie</Link>
-            <Link to='/movies' onClick={() =>toggleMenu('menu-extended-container')}>Movies</Link>
+            <div className='p-3 h-full flex flex-col gap-3 items-center'>
+            <Link to='/home' className='hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Home</Link>
+            <Link to='/add/movie' className='hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Add Movie</Link>
+            <Link to='/movies' className='hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Movies</Link>
             {/* Categories*/}
-            <div className='flex flex-col gap-1 items-center'>
+            <div className='flex flex-col gap-1'>
             <button onClick={() =>{
                 toggleMenu('grid-categories-container')
-            }} className='cursor-pointer' type='button' title='categories'>Categories</button>
+            }} className='cursor-pointer hover:text-blue-500' type='button' title='categories'>Categories</button>
             <div id='grid-categories-container' className='hidden'>
-            <div className='grid grid-cols-2 gap-1 text-sm p-2 bg-amber-100 rounded-2xl'>
-                <Link to='/movies/category/views_asc' className='w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>User Views</Link>
-                <Link to='/movies/category/created_asc' className=' w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>Latest Posts</Link>
-                <Link to='/movies/category/year_asc' className='w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>Latest Releases</Link>
-                <Link to={{pathname: '/movies', search: '?featured=true'}} className='w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>Featured by Administrators</Link>
-                <Link to='/movies/category/rating_asc' className='w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>Best Califications</Link>
+            <div className='grid grid-rows-3 grid-flow-col gap-1 text-sm p-3 bg-amber-100 rounded-2xl'>
+                <Link to='/movies/category/views_asc' className='w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>User Views</Link>
+                <Link to='/movies/category/created_asc' className=' w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Latest Posts</Link>
+                <Link to='/movies/category/year_asc' className='w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Latest Releases</Link>
+                <Link to={{pathname: '/movies', search: '?featured=true'}} className='w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Featured by Administrators</Link>
+                <Link to='/movies/category/rating_asc' className='w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Best Califications</Link>
             </div>
             </div>
             </div>
             {/* Genres*/}
-            <div className='flex flex-col gap-1 items-center'>
+            <div className='flex flex-col gap-1'>
             <button onClick={() =>{
                 toggleMenu('grid-genres-container')
-            }} className='cursor-pointer' type='button' title='genres'>Genres</button>
+            }} className='cursor-pointer hover:text-blue-500' type='button' title='genres'>Genres</button>
             <div id='grid-genres-container' className='hidden'>
-            <div className='grid grid-cols-2 gap-1 text-sm p-2 bg-amber-100 rounded-2xl'>
+            <div className={genresComponents.length<5? `p-3 text-sm flex flex-col gap-1 bg-amber-100 rounded-2xl`: "grid grid-rows-5 grid-flow-col gap-1 text-sm p-3 bg-amber-100 rounded-2xl"}>
                 {genresComponentsExpanded}
-                <Link to='/movies' className='font-bold w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>More</Link>
+                <Link to='/movies' className='font-bold w-29 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>More</Link>
             </div>
             </div>
             </div>
             {/* Years*/}
-            <div className='flex flex-col gap-1 items-center'>
+            <div className='flex flex-col gap-1'>
             <button onClick={() =>{
                 toggleMenu('grid-years-container')
-            }} className='cursor-pointer' type='button' title='years'>Years</button>
+            }} className='cursor-pointer hover:text-blue-500' type='button' title='years'>Years</button>
             <div id='grid-years-container' className='hidden'>
-            <div className='grid grid-cols-2 gap-1 text-sm p-2 bg-amber-100 rounded-2xl'>
+            <div className='grid grid-rows-5 grid-flow-col gap-1 text-sm p-3 bg-amber-100 rounded-2xl'>
                 {yearsComponentsExpanded}
-                <Link to='/movies' className='font-bold w-32 truncate' onClick={() =>toggleMenu('menu-extended-container')}>More</Link>
+                <Link to='/movies' className='font-bold w-13 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>More</Link>
             </div>
             </div>
             </div>
             {/* User*/}
-            <div className='flex flex-col gap-1 items-center'>
+            <div className='flex flex-col gap-1'>
             <button onClick={() =>{
                 toggleMenu('grid-user-container')
-            }} className='cursor-pointer' type='button' title={userInfo.username}>{userInfo.username}</button>
+            }} className='cursor-pointer hover:text-blue-500' type='button' title={userInfo.username}>{userInfo.username}</button>
             <div id='grid-user-container' className='hidden'>
-            <div className='grid grid-cols-1 gap-1 text-sm p-2 bg-amber-100 rounded-2xl'>
-                <button className='cursor-pointer w-15 text-red-900' type='button' title='logOut' onClick={() =>{ toggleMenu('menu-extended-container'); handleLogout()
+            <div className='flex flex-col gap-1 text-sm p-3 bg-amber-100 rounded-2xl'>
+                <button className='cursor-pointer w-29 text-left hover:text-blue-500' type='button' title='logOut' onClick={() =>{ toggleMenu('menu-extended-container'); handleLogout()
                 }}>Log Out</button>
             </div>
             </div>
