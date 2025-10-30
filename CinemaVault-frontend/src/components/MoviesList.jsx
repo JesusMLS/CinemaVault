@@ -41,7 +41,7 @@ function MoviesList(){
         //Request N1 (Obtain List of Movies, ordered, filtered, or without any of them)
         useEffect(()=>{
         setLoading(true)
-        const take = 24;
+        const take = 20;
         const skip = (page -1 ) * take
         API.get(`/movies/?skip=${skip}&take=${take}&search=${filters.search}&year=${filters.year}&featured=${filters.featured}&genre=${filters.genre}&order=${filters.order}`).then((response)=>{
             setMovies(response.data)
