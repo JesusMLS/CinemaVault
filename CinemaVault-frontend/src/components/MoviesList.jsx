@@ -1,8 +1,8 @@
 import SimpleSingleCard from "./SimpleSingleCard"
-import { Grid, Container, Card, Pagination, Flex, Group, TextInput, NumberInput, Checkbox } from "@mantine/core"
+import { Pagination, TextInput, NumberInput, Checkbox } from "@mantine/core"
 import { useEffect, useState } from "react";
 import { useForm } from '@mantine/form'
-import { useParams, useLocation, useSearchParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import API from "../utils/api";
 import Section from "./Section";
 
@@ -12,7 +12,6 @@ function MoviesList(){
         const [movies, setMovies] = useState([])
         const [loading, setLoading] = useState(true);
         const [error, setError] = useState(null)
-        const location = useLocation()
 
         //Could be used in the future for a reload button
         //const [reload, setReload] = useState(false)
@@ -24,7 +23,7 @@ function MoviesList(){
     const [filters, setFilters] = useState({
         year: year || '',
         search: search || '',
-        featured: searchParams.get("featured") || false,
+        featured: searchParams.get("featured") ==='true'? true: searchParams.get("featured") === 'false' ? false: false,
         genre: genre || '',
         order: order || ''
     })
@@ -33,7 +32,7 @@ function MoviesList(){
         initialValues:{
             search: '',
             year: year || '',
-            featured: searchParams.get("featured") || false,
+            featured: searchParams.get("featured") ==='true'? true: searchParams.get("featured") === 'false' ? false: false,
             genre: genre || ''
         }
     })
@@ -54,10 +53,10 @@ function MoviesList(){
             setLoading(false)
             setError(err.message)
         })
-        }, [page, filters, location])
+        }, [page, filters])
 
     let moviesComponents
-    if(loading === false && totalPages>0){
+    if(loading === false && totalPages>0 && error === null){
     moviesComponents = movies.movies.map((movie, index) =>{
         return <div key={movie.id}><SimpleSingleCard key={index} movie={movie}/></div>
     })
@@ -84,11 +83,11 @@ function MoviesList(){
             {/* End Inputs Section*/}
             <div className="p-4 bg-blue-200 flex flex-col justify-center gap-3 rounded-3xl">
             <p className="text-2xl">{order? (
-             order=='views_asc'? 'By User Views': order=='created_asc'? 'Latest Entries': order=='year_asc'? 'Latest Releases': order=='rating_asc'? 'By Best Ratings': order
+             order=='views_desc'? 'By User Views': order=='created_desc'? 'Latest Entries': order=='year_desc'? 'Latest Releases': order=='rating_desc'? 'By Best Ratings': order
             ): 'Movies'}</p>
             {order && (
                 <p className="text-sm">{
-                order=='views_asc'? 'Here you will find Movies Ordered By User Views.': order=='created_asc'? 'Here you will find our Latest Movies Entries.': order=='year_asc'? 'Here you will find Movies Ordered by Most Recent Releases.': order=='rating_asc'? 'Here you will find Movies Ordered By Rating.': order
+                order=='views_desc'? 'Here you will find Movies Ordered By User Views.': order=='created_desc'? 'Here you will find our Latest Movies Entries.': order=='year_desc'? 'Here you will find Movies Ordered by Most Recent Releases.': order=='rating_desc'? 'Here you will find Movies Ordered By Rating.': order
             }</p>
             )}
             {loading? <p className="text-2xl">Loading....</p>:error? <p className="text-xl">Error: {error}</p>: moviesComponents?

@@ -5,11 +5,11 @@ import roleMiddleware from '../middleware/roleMiddleware.js'
 const router = express.Router()
 
 //GET /genres/?take=10&order=movies_asc
-//Get movies (you can use filters)
+//Get genres (you can use filters)
 router.get('/', async (req, res) =>{
     const {order} = req.query
     const take = Number(req.query.take) || 10
-    const orderBy = order === 'movies_asc' ? [{ movies: { _count: 'asc' } }]: order === 'movies_desc' ? [{ movies: { _count: 'desc' } }]: { name: 'asc' }
+    const orderBy = order === 'movies_asc' ? [{ movies: { _count: 'asc' } }, { name: 'asc'} ]: order === 'movies_desc' ? [{ movies: { _count: 'desc' } }, { name: 'asc' }]: { name: 'asc' }
     try{
         const genres = await prisma.genre.findMany({
             take: take,

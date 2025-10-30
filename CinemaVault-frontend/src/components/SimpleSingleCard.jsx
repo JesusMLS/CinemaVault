@@ -1,6 +1,4 @@
-import ReactLogo from '../assets/react.svg'
 import ImageTest from '../assets/j5jngjqK8B5rdfgxMdnvyagKUgI.jpg'
-import {Card, Image, Text, Button, AspectRatio} from '@mantine/core'
 import { Link } from 'react-router'
 
 function SimpleSingleCard(props){

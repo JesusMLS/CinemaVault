@@ -13,7 +13,7 @@ router.get('/', async (req, res) =>{
     const skip = Number(req.query.skip)|| 0
     const take = Number(req.query.take) || 10
     const where = {...(featured === undefined ? {}: { featured: featuredBool }), ...(genre && { genres : { some: { genre: { name:  { equals: genre } } }} }), ...(year && { year: Number(year) }),...(search && { OR : [{ title:{ contains: search } },{ directors:{ some: { director: {name: {contains: search }}}} },{ actors:{ some: { actor: {name: {contains: search }}}} }]})};
-    const orderBy = order === 'year_desc' ? [{ year: 'desc' }, { title: 'asc' }] : order === 'year_asc' ? [{ year: 'asc' }, { title: 'asc' }] : order === 'views_desc' ? [{ views: { _count: 'desc' } }, { title: 'asc' }]: order === 'views_asc' ? [{ views: { _count: 'asc' } }, { title: 'asc' }]: order === 'created_asc' ? [{ created: 'asc' }, { id: 'asc' }]: order === 'rating_asc'? [ { rating: 'asc' }, { title: 'asc' } ] :{ id: 'asc' }
+    const orderBy = order === 'year_desc' ? [{ year: 'desc' }, { title: 'asc' }] : order === 'year_asc' ? [{ year: 'asc' }, { title: 'asc' }] : order === 'views_desc' ? [{ views: { _count: 'desc' } }, { title: 'asc' }]: order === 'views_asc' ? [{ views: { _count: 'asc' } }, { title: 'asc' }]: order === 'created_asc' ? [{ created: 'asc' }, { id: 'asc' }]: order === 'created_desc' ? [{ created: 'desc' }, { id: 'asc' }]: order === 'rating_asc'? [ { rating: 'asc' }, { title: 'asc' } ]: order === 'rating_desc'? [ { rating: 'desc' }, { title: 'asc' } ] :{ title: 'asc' }
     try{
         const movies = await prisma.movie.findMany({
             skip: skip,

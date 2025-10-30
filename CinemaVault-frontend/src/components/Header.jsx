@@ -11,27 +11,31 @@ function Header({ userInfo, logOut }){
         const [loading, setLoading] = useState(true);
         const [error, setError] = useState(null)
 
-        //Request N1 (Obtain a List of Top 10 genres ordered by movies asc and title asc)
+        //Request N1 (Obtain a List of Top 10 genres ordered by movies desc and name asc)
         useEffect(()=>{
-        API.get('/genres/?take=10&order=movies_asc').then((response)=>{
+            setLoading(true)
+        API.get('/genres/?take=10&order=movies_desc').then((response)=>{
             setGenres(response.data)
             setLoading(false)
         })
         .catch((err) =>{
-            setError(err.message)
             setLoading(false)
+            setError(err.message)
         })
         }, [])
-        
+
+        let genresComponents
+        let genresComponentsExpanded
+        if(loading === false && error === null){
         //Create an Array of Genres Links to render V1 (not expanded menu)
-        const genresComponents = genres.map((genre) =>{
+        genresComponents = genres.map((genre) =>{
             return <Link to={'/movies/genre/'+genre.name} key={genre.id} className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-genres-container')}>{genre.name}</Link>
         })
-
         //Create an Array of Genres Links to render V2 (expanded menu)
-        const genresComponentsExpanded = genres.map((genre) =>{
+        genresComponentsExpanded = genres.map((genre) =>{
             return <Link to={'/movies/genre/'+genre.name} key={genre.id} className='w-29 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>{genre.name}</Link>
         })
+        }
 
         //Create an array of past 10 Years, starting from the actual year
         const actualYear = new Date().getFullYear()
@@ -84,11 +88,11 @@ function Header({ userInfo, logOut }){
                 {/* 5 rows per column, a good amount to make it fit in most of the screens */}
                 {/* Flex only because we have 5 links but it could be a grid if +5 links*/}
                     <div className='p-3 h-full text-sm grid grid-rows-5 grid-flow-col gap-0'>
-                        <Link to='/movies/category/views_asc' className='w-36 truncate hover:bg-red p-2 rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>User Views</Link>
-                        <Link to='/movies/category/created_asc' className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>Latest Posts</Link>
-                        <Link to='/movies/category/year_asc' className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>Latest Releases</Link>
+                        <Link to='/movies/category/views_desc' className='w-36 truncate hover:bg-red p-2 rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>User Views</Link>
+                        <Link to='/movies/category/created_desc' className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>Latest Posts</Link>
+                        <Link to='/movies/category/year_desc' className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>Latest Releases</Link>
                         <Link to={{pathname: '/movies', search: '?featured=true'}} className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>Featured by Administrators</Link>
-                        <Link to='/movies/category/rating_asc' className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>Best Califications</Link>
+                        <Link to='/movies/category/rating_desc' className='w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-categories-container')}>Best Califications</Link>
                     </div>
             </div>
             </div>
@@ -101,10 +105,10 @@ function Header({ userInfo, logOut }){
             {/* Genres Menu*/}
             {/* Flex if less than 5 options / Grid if >=5 options */}
             <div id='menu-genres-container' className='hidden absolute w-auto h-auto top-6 right-0 bg-amber-100 shadow-lg rounded-sm'>
-                    <div className={genresComponents.length<5? `p-3 h-full text-sm flex flex-col gap-0 justify-center items-start`:"p-3 h-full text-sm grid grid-rows-5 grid-flow-col gap-0"}>
+                    {loading === false && error === null && <div className={genresComponents.length<5? `p-3 h-full text-sm flex flex-col gap-0 justify-center items-start`:"p-3 h-full text-sm grid grid-rows-5 grid-flow-col gap-0"}>
                         {genresComponents}
                         <Link to='/movies' className='font-bold w-36 truncate p-2 hover:bg-red rounded-sm' onClick={() =>toggleMenu('menu-genres-container')}>More</Link>
-                    </div>
+                    </div>}
             </div>
             </div>
             {/* Years Container*/}
@@ -159,11 +163,11 @@ function Header({ userInfo, logOut }){
             }} className='cursor-pointer hover:text-blue-500' type='button' title='categories'>Categories</button>
             <div id='grid-categories-container' className='hidden'>
             <div className='grid grid-rows-3 grid-flow-col gap-1 text-sm p-3 bg-amber-100 rounded-2xl'>
-                <Link to='/movies/category/views_asc' className='w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>User Views</Link>
-                <Link to='/movies/category/created_asc' className=' w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Latest Posts</Link>
-                <Link to='/movies/category/year_asc' className='w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Latest Releases</Link>
+                <Link to='/movies/category/views_desc' className='w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>User Views</Link>
+                <Link to='/movies/category/created_desc' className=' w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Latest Posts</Link>
+                <Link to='/movies/category/year_desc' className='w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Latest Releases</Link>
                 <Link to={{pathname: '/movies', search: '?featured=true'}} className='w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Featured by Administrators</Link>
-                <Link to='/movies/category/rating_asc' className='w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Best Califications</Link>
+                <Link to='/movies/category/rating_desc' className='w-32 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>Best Califications</Link>
             </div>
             </div>
             </div>
@@ -173,10 +177,10 @@ function Header({ userInfo, logOut }){
                 toggleMenu('grid-genres-container')
             }} className='cursor-pointer hover:text-blue-500' type='button' title='genres'>Genres</button>
             <div id='grid-genres-container' className='hidden'>
-            <div className={genresComponents.length<5? `p-3 text-sm flex flex-col gap-1 bg-amber-100 rounded-2xl`: "grid grid-rows-5 grid-flow-col gap-1 text-sm p-3 bg-amber-100 rounded-2xl"}>
+            {loading === false && error === null && <div className={genresComponentsExpanded.length<5? `p-3 text-sm flex flex-col gap-1 bg-amber-100 rounded-2xl`: "grid grid-rows-5 grid-flow-col gap-1 text-sm p-3 bg-amber-100 rounded-2xl"}>
                 {genresComponentsExpanded}
                 <Link to='/movies' className='font-bold w-29 truncate hover:text-blue-500' onClick={() =>toggleMenu('menu-extended-container')}>More</Link>
-            </div>
+            </div>}
             </div>
             </div>
             {/* Years*/}
